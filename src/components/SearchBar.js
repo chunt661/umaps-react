@@ -8,3 +8,21 @@ export const SearchBar = (props) => {
         </div>
     );
 };
+
+const SearchResults = (props) => {
+    return (
+        <div className="search-results-wrapper">
+            <ul className="search-results">
+            {
+                props.results.map(r => {
+                    return (
+                        <li key={"result" + r}>
+                            <span>r</span>
+                        </li>
+                    )
+                })
+            }
+            </ul>
+        </div>
+    );
+}

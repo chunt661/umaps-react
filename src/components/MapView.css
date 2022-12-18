@@ -7,12 +7,13 @@ main.map-view .navbar {
     box-shadow: var(--box-shadow);
     
     padding: 0px 16px;
+    
+    z-index: 2000;
 }
 
 main.map-view .navbar .navbar-title {
     display: flex;
     align-items: center;
-    font-size: 
 }
 
 main.map-view .navbar .logo {

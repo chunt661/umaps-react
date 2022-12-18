@@ -3,7 +3,6 @@ import "./MapView.css";
 import { useState, useEffect } from "react";
 import { fetchMapData } from "../api";
 import { Map } from "./Map";
-
 const mapID = "mru";
 
 export const MapView = (props) => {
@@ -24,6 +23,7 @@ export const MapView = (props) => {
             <div className="map-container">
             { mapData &&
                 <Map mapID={mapID}
+                    floors={mapData.floors}
                     mapWidth={mapData.width}
                     mapHeight={mapData.height} 
                     maxZoom={mapData.maxZoom} />

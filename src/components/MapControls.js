@@ -1,5 +1,3 @@
-// From https://stackoverflow.com/questions/69530278/react-leaflet-v3-reusable-custom-control
-
 import { useEffect } from "react";
 import { Control, DomUtil, DomEvent } from "leaflet";
 

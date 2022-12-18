@@ -2,6 +2,7 @@ import "./MapView.css";
 
 import { useState, useEffect } from "react";
 import { fetchMapData } from "../api";
+import { SearchBar } from "./SearchBar";
 import { Map } from "./Map";
 const mapID = "mru";
 
@@ -21,6 +22,7 @@ export const MapView = (props) => {
                 </div>
             </nav>
             <div className="map-container">
+                <SearchBar />
             { mapData &&
                 <Map mapID={mapID}
                     floors={mapData.floors}

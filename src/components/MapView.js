@@ -1,6 +1,17 @@
 import "./MapView.css";
 
+import { useState, useEffect } from "react";
+import { fetchMapData } from "../api";
+import { Map } from "./Map";
+const mapID = "mru";
+
 export const MapView = (props) => {
+    const [mapData, setMapData] = useState(null);
+    
+    useEffect(() => {
+        fetchMapData(mapID, setMapData);
+    }, []);
+    
     return (
         <main className="map-view">
             <nav className="navbar">
@@ -9,6 +20,15 @@ export const MapView = (props) => {
                     <b>MRU Room Finder</b>
                 </div>
             </nav>
+            <div className="map-container">
+            { mapData &&
+                <Map mapID={mapID}
+                    floors={mapData.floors}
+                    mapWidth={mapData.width}
+                    mapHeight={mapData.height} 
+                    maxZoom={mapData.maxZoom} />
+            }
+            </div>
         </main>
     );
 };

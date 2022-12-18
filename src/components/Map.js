@@ -26,6 +26,7 @@ export const Map = (props) => {
         <MapContainer id="map"
             crs={CRS.Simple}
             bounds={mapBounds}
+            zoomControl={false}
             ref={handleMapCreated}>
             <TileLayer
                 url={getTileURL("mru", 1)}

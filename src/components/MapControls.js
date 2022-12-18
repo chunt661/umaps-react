@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Control, DomUtil, DomEvent } from "leaflet";
 
-const _createButton = (txt, title, container) => {
-    const button = DomUtil.create("a", "", container);
+const _createButton = (txt, title, className, container) => {
+    const button = DomUtil.create("a", className, container);
     button.innerHTML = txt;
     button.href = "#";
     button.title = title;
@@ -32,7 +32,9 @@ export const FloorControl = (props) => {
                 
                 // Add a button for each floor
                 props.floors.slice().reverse().forEach(f =>
-                    _createButton(f, "Floor " + f, container)
+                    _createButton(f, "Floor " + f,
+                                  props.currentFloor == f ? "selected" : "",
+                                  container)
                 );
                 
                 return container;

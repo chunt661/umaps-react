@@ -33,7 +33,10 @@ export const Map = (props) => {
                 zoomOffset={0}
                 maxZoom={props.maxZoom}
                 bounds={tileBounds} />
-            { map && <FloorControl map={map} floors={props.floors} />}
+            { map && <FloorControl
+                         map={map}
+                         floors={props.floors}
+                         currentFloor={1} />}
         </MapContainer>
     );
 };

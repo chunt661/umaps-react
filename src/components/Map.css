@@ -1,3 +1,8 @@
 #map {
     height: 100%;
 }
+
+.leaflet-control a.selected {
+    color: white;
+    background: var(--highlight-colour);
+}

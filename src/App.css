@@ -1,6 +1,7 @@
 :root {
     --card-bg-colour: white;
     --box-shadow: 0px 0px 5px #c0c0c0;
+    --highlight-colour: #ed1846;
 }
 
 html, body, main, .App, #root {

@@ -3,6 +3,21 @@
 import { useEffect } from "react";
 import { Control, DomUtil, DomEvent } from "leaflet";
 
+const _createButton = (txt, title, container) => {
+    const button = DomUtil.create("a", "", container);
+    button.innerHTML = txt;
+    button.href = "#";
+    button.title = title;
+
+    button.setAttribute("role", "button");
+    button.setAttribute("aria-label", title)
+
+    DomEvent.disableClickPropagation(button);
+    DomEvent.on(button, "click", DomEvent.stop);
+
+    return button;
+}
+
 export const FloorControl = (props) => {
     
     useEffect(() => {
@@ -25,21 +40,6 @@ export const FloorControl = (props) => {
                 return container;
             }
         });
-        
-        const _createButton = (txt, title, container) => {
-            const button = DomUtil.create("a", "", container);
-            button.innerHTML = txt;
-            button.href = "#";
-            button.title = title;
-            
-            button.setAttribute("role", "button");
-            button.setAttribute("aria-label", title)
-            
-            DomEvent.disableClickPropagation(button);
-            DomEvent.on(button, "click", DomEvent.stop);
-            
-            return button;
-        }
         
         return new FloorControl({position: "bottomright"});
     };

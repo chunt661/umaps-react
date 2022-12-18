@@ -1,5 +1,7 @@
 import "./MapView.css";
 
+import { Map } from "./Map";
+
 export const MapView = (props) => {
     return (
         <main className="map-view">
@@ -9,6 +11,9 @@ export const MapView = (props) => {
                     <b>MRU Room Finder</b>
                 </div>
             </nav>
+            <div className="map-container">
+                <Map />
+            </div>
         </main>
     );
 };

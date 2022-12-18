@@ -2,3 +2,12 @@
     --card-bg-colour: white;
     --box-shadow: 0px 0px 5px #c0c0c0;
 }
+
+html, body, main, .App, #root {
+    height: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}

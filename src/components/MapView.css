@@ -19,3 +19,8 @@ main.map-view .navbar .logo {
     height: 32px;
     margin-right: 8px;
 }
+
+.map-container {
+    position: relative;
+    height: 100%;
+}

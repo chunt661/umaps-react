@@ -10,6 +10,12 @@ const mapID = "mru";
 export const MapView = (props) => {
     const [mapData, setMapData] = useState(null);
     
+    /**
+    Data of the currently selected feature, if any, to be displayed in the
+    info card.
+    */
+    const [feature, setFeature] = useState(null);
+    
     useEffect(() => {
         fetchMapData(mapID, setMapData);
     }, []);
@@ -30,10 +36,15 @@ export const MapView = (props) => {
                     startingFloor={mapData.startingFloor}
                     mapWidth={mapData.width}
                     mapHeight={mapData.height} 
-                    maxZoom={mapData.maxZoom} />
+                    maxZoom={mapData.maxZoom}
+                    onFeatureSelect={setFeature} />
             }
             </div>
-            <InfoCard />
+            { feature &&
+                <InfoCard roomName={feature.name}
+                    roomNumber={feature.roomID}
+                    roomType={feature.type}
+                    description={feature.description} /> }
         </main>
     );
 };

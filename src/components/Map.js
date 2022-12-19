@@ -70,6 +70,13 @@ export const Map = (props) => {
         map.scrollWheelZoom.disable();
     };
     
+    const selectFeature = (feature) => {
+        props.onFeatureSelect({
+            ...feature.properties,
+            roomID: feature.room_id
+        });
+    };
+    
     /**
     Called during map setup. Finalizes map settings and sets the map state.
     */
@@ -90,8 +97,8 @@ export const Map = (props) => {
     
     const handleFeatureClick = (feature) => {
         fetchSingleFeature(props.mapID, feature.feature.room_id, (data) => {
-            console.log(data);
             goToFeature(data);
+            selectFeature(data[0]);
         });
     };
     

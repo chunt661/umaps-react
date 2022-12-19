@@ -15,17 +15,15 @@ export const InfoCard = (props) => {
             <div className="infocard">
                 <div className="infocard-title"
                     onClick={handleTitleClick}>
-                    <b>Room Name</b>
+                    <b>{props.roomName}</b>
                 </div>
                 <div className={"infocard-content-wrapper" + (open ? " open" : " closed")}>
                     <div className="infocard-content">
                         <div className="infocard-subcontent">
-                            <span>Room Number</span>
-                            <span>Type of Room</span>
+                            <span>{props.roomNumber}</span>
+                            <span>{props.roomType}</span>
                         </div>
-                        <p>
-                            This is the room description. My internet is down and I don't have access to a lorem ipsum generator. Here is my placeholder text instead.
-                        </p>
+                        <p>{props.description}</p>
                     </div>
                 </div>
             </div>

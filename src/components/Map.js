@@ -56,10 +56,11 @@ export const Map = (props) => {
                 maxZoom={props.maxZoom}
                 bounds={tileBounds} />
             <FeatureLayer data={features} />
-            { map && <FloorControl
-                         map={map}
-                         floors={props.floors}
-                         currentFloor={currentFloor} />}
+            { (map && currentFloor) &&
+                <FloorControl
+                     map={map}
+                     floors={props.floors}
+                     currentFloor={currentFloor} /> }
         </MapContainer>
     );
 };

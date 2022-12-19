@@ -6,6 +6,7 @@ import { latLngBounds, CRS } from "leaflet";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { getTileURL, fetchFeatures } from "../api";
 import { FloorControl } from "./MapControls";
+import { FeatureLayer } from "./MapLayers";
 
 export const Map = (props) => {
     const [map, setMap] = useState(null);
@@ -55,22 +56,12 @@ export const Map = (props) => {
                 zoomOffset={0}
                 maxZoom={props.maxZoom}
                 bounds={tileBounds} />
-            <FeatureLayer data={features} />
+            { features && <FeatureLayer data={features} /> }
             { (map && currentFloor) &&
                 <FloorControl
                      map={map}
                      floors={props.floors}
                      currentFloor={currentFloor} /> }
         </MapContainer>
-    );
-};
-
-const FeatureLayer = (props) => {
-    return (
-        <GeoJSON
-            data={props.data}
-            onEachFeature={(feature, layer) => {
-                layer.bindTooltip(l => l.feature.properties.name);
-            }} />
     );
 };

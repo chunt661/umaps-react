@@ -2,7 +2,23 @@
     height: 100%;
 }
 
+/* Prevents box outline when a feature is clicked */
+#map g path {
+    outline: none !important;
+}
+
+/*
+Leaflet overrides
+*/
+
+.leaflet-control.leaflet-bar {
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow: var(--box-shadow) !important;
+    overflow: hidden;
+}
+
 .leaflet-control a.selected {
-    color: white;
-    background: var(--highlight-colour);
+    color: white !important;
+    background: var(--highlight-colour) !important;
 }

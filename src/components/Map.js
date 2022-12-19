@@ -35,12 +35,54 @@ export const Map = (props) => {
     }, [map]);
     
     /**
+    Zooms the map to the centre of the given feature.
+    */
+    const goToFeature = (feature) => {
+        let minX = props.mapWidth;
+        let minY = props.mapHeight;
+        let maxX = -props.mapWidth;
+        let maxY = -props.mapHeight;
+
+        // Find the centre of the room
+        feature[0].geometry.coordinates[0].forEach(c => {
+            minX = Math.min(c[0], minX);
+            minY = Math.min(c[1], minY);
+            maxX = Math.max(c[0], maxX);
+            maxY = Math.max(c[1], maxY);
+
+        });
+
+        // Change floor if necessary
+        if (currentFloor != feature[0].floor) {
+            setCurrentFloor(feature[0].floor);
+        }
+
+        // Zoom in on the room
+        const centre = latLng((maxY + minY)/2, (maxX + minX)/2);
+        map.flyTo(centre, 2.5);
+        
+        // Disable map controls to prevent bugged display on interrupt
+        map.dragging.disable();
+        map.keyboard.disable();
+        map.doubleClickZoom.disable();
+        map.scrollWheelZoom.disable();
+    };
+    
+    /**
     Called during map setup. Finalizes map settings and sets the map state.
     */
     const handleMapCreated = (m) => {
         if (m) {
             m.fitBounds(mapBounds);
             m.setMaxBounds(mapBounds);
+            
+            m.on("moveend", () => {
+                m.dragging.enable();
+                m.keyboard.enable();
+                m.doubleClickZoom.enable();
+                m.scrollWheelZoom.enable();
+            });
+            
             setMap(m);
         }
     };
@@ -48,6 +90,7 @@ export const Map = (props) => {
     const handleFeatureClick = (feature) => {
         fetchSingleFeature(props.mapID, feature.feature.room_id, (data) => {
             console.log(data);
+            goToFeature(data);
         });
     };
     

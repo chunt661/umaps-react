@@ -10,7 +10,14 @@ export function fetchMapData(mapID, fn) {
 }
 
 export function fetchFeatures(mapID, floor, fn) {
-    fetch(`${API_PATH}/features/${mapID}/${floor}`)
+    fetch(`${API_PATH}/features/${mapID}/floor/${floor}`)
+        .then(res => res.json())
+        .then(json => fn(json))
+        .catch(e => console.log(e)); // TODO: proper logging
+}
+
+export function fetchSingleFeature(mapID, featureID, fn) {
+    fetch(`${API_PATH}/features/${mapID}/${featureID}`)
         .then(res => res.json())
         .then(json => fn(json))
         .catch(e => console.log(e)); // TODO: proper logging

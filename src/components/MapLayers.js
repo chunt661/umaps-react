@@ -20,6 +20,10 @@ export const FeatureLayer = (props) => {
         fillOpacity: 0
     };
     
+    const handleClick = (e, layer) => {
+        props.onClick(layer.target);
+    };
+    
     const handleMouseOver = (e, layer) => {
         layer.target.setStyle({ "fillOpacity": "0.5"});
     };
@@ -36,6 +40,7 @@ export const FeatureLayer = (props) => {
                 layer.bindTooltip(l => l.feature.properties.name);
                 layer.on("mouseover", L.bind(handleMouseOver, null, layer));
                 layer.on("mouseout", L.bind(handleMouseOut, null, layer));
+                layer.on("click", L.bind(handleClick, null, layer));
             }} />
     );
 };

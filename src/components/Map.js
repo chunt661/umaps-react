@@ -2,9 +2,9 @@ import "./Map.css";
 import "../leaflet/leaflet.css";
 
 import { useState, useEffect } from "react"
-import { latLngBounds, CRS } from "leaflet";
+import { latLngBounds, latLng, CRS } from "leaflet";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
-import { getTileURL, fetchFeatures } from "../api";
+import { getTileURL, fetchFeatures, fetchSingleFeature } from "../api";
 import { FloorControl } from "./MapControls";
 import { FeatureLayer } from "./MapLayers";
 
@@ -45,6 +45,12 @@ export const Map = (props) => {
         }
     };
     
+    const handleFeatureClick = (feature) => {
+        fetchSingleFeature(props.mapID, feature.feature.room_id, (data) => {
+            console.log(data);
+        });
+    };
+    
     return (
         <MapContainer id="map"
             crs={CRS.Simple}
@@ -56,7 +62,9 @@ export const Map = (props) => {
                 zoomOffset={0}
                 maxZoom={props.maxZoom}
                 bounds={tileBounds} />
-            { features && <FeatureLayer data={features} /> }
+            { features &&
+                <FeatureLayer data={features}
+                    onClick={handleFeatureClick} /> }
             { (map && currentFloor) &&
                 <FloorControl
                      map={map}

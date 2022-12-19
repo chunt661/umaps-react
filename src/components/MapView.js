@@ -26,6 +26,7 @@ export const MapView = (props) => {
             { mapData &&
                 <Map mapID={mapID}
                     floors={mapData.floors}
+                    startingFloor={mapData.startingFloor}
                     mapWidth={mapData.width}
                     mapHeight={mapData.height} 
                     maxZoom={mapData.maxZoom} />

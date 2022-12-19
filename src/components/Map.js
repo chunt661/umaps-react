@@ -4,7 +4,7 @@ import "../leaflet/leaflet.css";
 import { useState } from "react"
 import { latLngBounds, CRS } from "leaflet";
 import { MapContainer, TileLayer } from "react-leaflet";
-import { getTileURL } from "../api";
+import { getTileURL, fetchFeatures } from "../api";
 import { FloorControl } from "./MapControls";
 
 export const Map = (props) => {
@@ -13,11 +13,19 @@ export const Map = (props) => {
     const tileBounds = latLngBounds([-props.mapHeight, 0], [0, props.mapWidth]);
     const mapBounds = tileBounds.pad(.25);
     
+    const changeFloor = (f) => {
+        fetchFeatures(props.mapID, f, (data) => {
+            console.log(data);
+        });
+    };
+    
     const handleMapCreated = (map) => {
         if (map) {
             map.fitBounds(mapBounds);
             map.setMaxBounds(mapBounds);
 
+            changeFloor(props.startingFloor);
+            
             setMap(map);
         }
     };

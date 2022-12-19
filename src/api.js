@@ -2,10 +2,18 @@
 const API_PATH = "http://localhost:8080/api";
 const TILE_PATH = "http://localhost:8080/tiles";
 
-export function fetchMapData(mapID, func) {
+export function fetchMapData(mapID, fn) {
     fetch(`${API_PATH}/data/${mapID}`)
         .then(res => res.json())
-        .then(json => func(json))
+        .then(json => fn(json))
+        .catch(e => console.log(e)); // TODO: proper logging
+}
+
+export function fetchFeatures(mapID, floor, fn) {
+    console.log(`${API_PATH}/features/${mapID}/${floor}`);
+    fetch(`${API_PATH}/features/${mapID}/${floor}`)
+        .then(res => res.json())
+        .then(json => fn(json))
         .catch(e => console.log(e)); // TODO: proper logging
 }
 

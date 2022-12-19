@@ -1,32 +1,46 @@
 import "./Map.css";
 import "../leaflet/leaflet.css";
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { latLngBounds, CRS } from "leaflet";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { getTileURL, fetchFeatures } from "../api";
 import { FloorControl } from "./MapControls";
 
 export const Map = (props) => {
     const [map, setMap] = useState(null);
+    const [features, setFeatures] = useState(null);
+    const [currentFloor, setCurrentFloor] = useState(0);
     
     const tileBounds = latLngBounds([-props.mapHeight, 0], [0, props.mapWidth]);
     const mapBounds = tileBounds.pad(.25);
     
-    const changeFloor = (f) => {
-        fetchFeatures(props.mapID, f, (data) => {
-            console.log(data);
+    /**
+    Sets the current floor and loads the new floor data.
+    */
+    const changeFloor = (floor) => {
+        fetchFeatures(props.mapID, floor, (data) => {
+            setFeatures(data);
+            setCurrentFloor(floor);
+            console.log("change floor: " + floor);
         });
     };
     
-    const handleMapCreated = (map) => {
+    // Activates when the map loads
+    useEffect(() => {
         if (map) {
-            map.fitBounds(mapBounds);
-            map.setMaxBounds(mapBounds);
-
             changeFloor(props.startingFloor);
-            
-            setMap(map);
+        }
+    }, [map]);
+    
+    /**
+    Called during map setup. Finalizes map settings and sets the map state.
+    */
+    const handleMapCreated = (m) => {
+        if (m) {
+            m.fitBounds(mapBounds);
+            m.setMaxBounds(mapBounds);
+            setMap(m);
         }
     };
     
@@ -41,10 +55,21 @@ export const Map = (props) => {
                 zoomOffset={0}
                 maxZoom={props.maxZoom}
                 bounds={tileBounds} />
+            <FeatureLayer data={features} />
             { map && <FloorControl
                          map={map}
                          floors={props.floors}
-                         currentFloor={1} />}
+                         currentFloor={currentFloor} />}
         </MapContainer>
+    );
+};
+
+const FeatureLayer = (props) => {
+    return (
+        <GeoJSON
+            data={props.data}
+            onEachFeature={(feature, layer) => {
+                layer.bindTooltip(l => l.feature.properties.name);
+            }} />
     );
 };

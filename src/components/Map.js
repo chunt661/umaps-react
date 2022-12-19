@@ -6,12 +6,13 @@ import { latLngBounds, latLng, CRS } from "leaflet";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { getTileURL, fetchFeatures, fetchSingleFeature } from "../api";
 import { FloorControl } from "./MapControls";
-import { FeatureLayer } from "./MapLayers";
+import { FeatureLayer, SelectionLayer } from "./MapLayers";
 
 export const Map = (props) => {
     const [map, setMap] = useState(null);
     const [features, setFeatures] = useState(null);
     const [currentFloor, setCurrentFloor] = useState(0);
+    const [selection, setSelection] = useState(null);
     
     const tileBounds = latLngBounds([-props.mapHeight, 0], [0, props.mapWidth]);
     const mapBounds = tileBounds.pad(.25);
@@ -71,6 +72,8 @@ export const Map = (props) => {
     };
     
     const selectFeature = (feature) => {
+        setSelection(feature);
+        
         props.onFeatureSelect({
             ...feature.properties,
             roomID: feature.room_id
@@ -116,6 +119,8 @@ export const Map = (props) => {
             { features &&
                 <FeatureLayer data={features}
                     onClick={handleFeatureClick} /> }
+            { selection &&
+                <SelectionLayer data={selection} />}
             { (map && currentFloor) &&
                 <FloorControl
                      map={map}

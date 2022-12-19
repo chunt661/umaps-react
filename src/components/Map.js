@@ -30,6 +30,8 @@ export const Map = (props) => {
     // Activates when the map loads
     useEffect(() => {
         if (map) {
+            map.fitBounds(mapBounds);
+            
             changeFloor(props.startingFloor);
         }
     }, [map]);
@@ -73,7 +75,6 @@ export const Map = (props) => {
     */
     const handleMapCreated = (m) => {
         if (m) {
-            m.fitBounds(mapBounds);
             m.setMaxBounds(mapBounds);
             
             m.on("moveend", () => {

@@ -28,15 +28,6 @@ export const Map = (props) => {
         });
     };
     
-    // Activates when the map loads
-    useEffect(() => {
-        if (map) {
-            map.fitBounds(mapBounds);
-            
-            changeFloor(props.startingFloor);
-        }
-    }, [map]);
-    
     /**
     Zooms the map to the centre of the given feature.
     */
@@ -80,30 +71,38 @@ export const Map = (props) => {
         });
     };
     
-    /**
-    Called during map setup. Finalizes map settings and sets the map state.
-    */
-    const handleMapCreated = (m) => {
-        if (m) {
-            m.setMaxBounds(mapBounds);
-            
-            m.on("moveend", () => {
-                m.dragging.enable();
-                m.keyboard.enable();
-                m.doubleClickZoom.enable();
-                m.scrollWheelZoom.enable();
-            });
-            
-            setMap(m);
-        }
-    };
-    
     const handleFeatureClick = (feature) => {
         fetchSingleFeature(props.mapID, feature.feature.room_id, (data) => {
             goToFeature(data);
             selectFeature(data[0]);
         });
     };
+    
+    /**
+    Assigns the map object to the component state.
+    */
+    const handleMapCreated = (m) => {
+        if (m) {
+            setMap(m);
+        }
+    };
+    
+    // Activates once when the map loads to finalize map settings.
+    useEffect(() => {
+        if (map) {
+            map.fitBounds(mapBounds);
+            map.setMaxBounds(mapBounds);
+            
+            map.on("moveend", () => {
+                map.dragging.enable();
+                map.keyboard.enable();
+                map.doubleClickZoom.enable();
+                map.scrollWheelZoom.enable();
+            });
+            
+            changeFloor(props.startingFloor);
+        }
+    }, [map]);
     
     return (
         <MapContainer id="map"

@@ -25,6 +25,10 @@
     margin-bottom: 16px;
 }
 
+.infocard-content-wrapper {
+    overflow: hidden;
+}
+
 .infocard-content-wrapper.closed {
     height: 0px;
 }

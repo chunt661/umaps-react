@@ -5,7 +5,7 @@
 
 .infocard {
     background: var(--card-bg-colour);
-        box-shadow: var(--box-shadow);
+    box-shadow: var(--box-shadow);
 }
 
 .infocard-title, .infocard-content {
@@ -23,4 +23,12 @@
 
 .infocard-content > * {
     margin-bottom: 16px;
+}
+
+.infocard-content-wrapper.closed {
+    height: 0px;
+}
+
+.infocard-content-wrapper.open {
+    height: 100%;
 }

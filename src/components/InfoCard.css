@@ -1,0 +1,26 @@
+.infocard-wrapper {
+    position: relative;
+    z-index: 2000;
+}
+
+.infocard {
+    background: var(--card-bg-colour);
+        box-shadow: var(--box-shadow);
+}
+
+.infocard-title, .infocard-content {
+    padding: 16px;
+}
+
+.infocard-subcontent {
+    display: flex;
+    justify-content: space-between;
+}
+
+.infocard-content {
+    border-top: 1px solid lightgrey;
+}
+
+.infocard-content > * {
+    margin-bottom: 16px;
+}

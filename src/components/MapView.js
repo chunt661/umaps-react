@@ -3,6 +3,7 @@ import "./MapView.css";
 import { useState, useEffect } from "react";
 import { fetchMapData } from "../api";
 import { SearchBar } from "./SearchBar";
+import { InfoCard } from "./InfoCard";
 import { Map } from "./Map";
 const mapID = "mru";
 
@@ -32,6 +33,7 @@ export const MapView = (props) => {
                     maxZoom={mapData.maxZoom} />
             }
             </div>
+            <InfoCard />
         </main>
     );
 };

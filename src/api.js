@@ -10,7 +10,6 @@ export function fetchMapData(mapID, fn) {
 }
 
 export function fetchFeatures(mapID, floor, fn) {
-    console.log(`${API_PATH}/features/${mapID}/${floor}`);
     fetch(`${API_PATH}/features/${mapID}/${floor}`)
         .then(res => res.json())
         .then(json => fn(json))

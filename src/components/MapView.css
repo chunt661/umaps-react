@@ -1,0 +1,27 @@
+main.map-view .navbar {
+    display: flex;
+    align-items: center;
+    height:40px;
+    
+    background: var(--card-bg-colour);
+    box-shadow: var(--box-shadow);
+    
+    padding: 0px 16px;
+    
+    z-index: 2000;
+}
+
+main.map-view .navbar .navbar-title {
+    display: flex;
+    align-items: center;
+}
+
+main.map-view .navbar .logo {
+    height: 24px;
+    margin-right: 8px;
+}
+
+.map-container {
+    position: relative;
+    height: 100%;
+}

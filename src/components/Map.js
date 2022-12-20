@@ -24,7 +24,6 @@ export const Map = (props) => {
         fetchFeatures(props.mapID, floor, (data) => {
             setFeatures(data);
             setCurrentFloor(floor);
-            console.log("change floor: " + floor);
         });
     };
     
@@ -131,9 +130,10 @@ export const Map = (props) => {
                 <SelectionLayer data={selection} />}
             { (map && currentFloor) &&
                 <FloorControl
-                     map={map}
-                     floors={props.floors}
-                     currentFloor={currentFloor} /> }
+                    map={map}
+                    floors={props.floors}
+                    currentFloor={currentFloor}
+                    onClick={changeFloor} /> }
         </MapContainer>
     );
 };

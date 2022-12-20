@@ -7,6 +7,8 @@ export const SearchBar = (props) => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
     
+    const hasResults = results.length > 0;
+    
     const performSearch = (q) => {
         fetchSearchResults(props.mapID, q, (data) => {
             setResults(data)
@@ -32,7 +34,7 @@ export const SearchBar = (props) => {
     
     return (
         <div className="search-wrapper">
-            <div className="searchbar-wrapper">
+            <div className={"searchbar-wrapper" + (hasResults ? " open" : "")}>
                 <input className="searchbar"
                     placeholder="Find a room"
                     value={query}
@@ -42,7 +44,7 @@ export const SearchBar = (props) => {
                 { query.length == 0 &&
                     <SearchIcon size={20} /> }
             </div>
-            { results.length > 0 &&
+            { hasResults &&
                 <SearchResults results={results} /> }
         </div>
     );
@@ -71,12 +73,12 @@ Circle with an X.
 Has a onClick handler to function as the erase all button for the searchbar.
 */
 const DeleteIcon = (props) => (
-    <svg className="icon close-icon"
+    <svg className="icon delete-icon"
         width={props.size} height={props.size}
         onClick={props.onClick}>
         <circle cx={props.size/2} cy={props.size/2} r={props.size*.4}
-            stroke="gray" strokeWidth="1.5" fill="none" />
-        <path stroke="gray" strokeWidth="1.5"
+            strokeWidth="1.5" fill="none" />
+        <path strokeWidth="1.5"
             d={
                 `M ${props.size*.3} ${props.size*.3}` +
                 `L ${props.size*.7} ${props.size*.7}` +
@@ -92,10 +94,11 @@ I currently don't have internet access so I had to make it from scratch. Thank
 god for trigonometry. Please don't judge the mess.
 */
 const SearchIcon = (props) => (
-    <svg width={props.size} height={props.size}>
+    <svg className="icon"
+        width={props.size} height={props.size}>
         <circle cx={props.size*.4} cy={props.size*.4} r={props.size*.3}
-            stroke="gray" strokeWidth="1.5" fill="none" />
-        <path stroke="gray" strokeWidth="1.5"
+            strokeWidth="1.5" fill="none" />
+        <path strokeWidth="1.5"
             d={
                 `M ${props.size*.4 + Math.cos(Math.PI/4)*props.size*.3}` +
                 ` ${props.size*.4 + Math.cos(Math.PI/4)*props.size*.3}` +

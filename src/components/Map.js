@@ -12,7 +12,6 @@ export const Map = (props) => {
     const [map, setMap] = useState(null);
     const [features, setFeatures] = useState(null);
     const [currentFloor, setCurrentFloor] = useState(props.startingFloor);
-    const [selection, setSelection] = useState(null);
     
     const tileBounds = latLngBounds([-props.mapHeight, 0], [0, props.mapWidth]);
     const mapBounds = tileBounds.pad(.25);
@@ -61,27 +60,8 @@ export const Map = (props) => {
         map.scrollWheelZoom.disable();
     };
     
-    const selectFeature = (feature) => {
-        setSelection(feature);
-        
-        props.onFeatureSelect({
-            ...feature.properties,
-            roomID: feature.room_id
-        });
-    };
-    
-    const clearSelection = () => {
-        setSelection(null);
-        props.clearSelection();
-    };
-    
     const handleFeatureClick = (feature) => {
         props.onFeatureSelect(feature.feature.room_id);
-        
-        /*fetchSingleFeature(props.mapID, feature.feature.room_id, (data) => {
-            goToFeature(data);
-            selectFeature(data[0]);
-        });*/
     };
     
     /**
@@ -107,7 +87,7 @@ export const Map = (props) => {
             });
             
             map.on("click", (e) => {
-                clearSelection();
+                props.clearSelection();
             });
             
             changeFloor(props.startingFloor);
@@ -136,7 +116,7 @@ export const Map = (props) => {
                 <FeatureLayer data={features}
                     floor={currentFloor}
                     onClick={handleFeatureClick} /> }
-            { selection &&
+            { props.selection &&
                 <SelectionLayer data={props.selection}
                     floor={currentFloor} />}
             { (map && currentFloor) &&

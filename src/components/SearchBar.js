@@ -69,9 +69,9 @@ export const SearchBar = (props) => {
                     value={query}
                     onInput={handleInput}
                     onFocus={() => setActive(true)} />
-                { query.length > 0 &&
+                { (query.length > 0 && active) &&
                     <DeleteIcon size={20} onClick={clearInput} /> }
-                { query.length == 0 &&
+                { (query.length == 0 || !active) &&
                     <SearchIcon size={20} /> }
             </div>
             { isOpen &&

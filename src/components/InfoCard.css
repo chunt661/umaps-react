@@ -12,6 +12,10 @@
     padding: 16px;
 }
 
+.infocard-title {
+    cursor: pointer;
+}
+
 .infocard-subcontent {
     display: flex;
     justify-content: space-between;

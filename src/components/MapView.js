@@ -29,7 +29,7 @@ export const MapView = (props) => {
                 </div>
             </nav>
             <div className="map-container">
-                <SearchBar />
+                <SearchBar mapID={mapID} />
             { mapData &&
                 <Map mapID={mapID}
                     floors={mapData.floors}

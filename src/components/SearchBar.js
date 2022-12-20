@@ -8,11 +8,15 @@ export const SearchBar = (props) => {
     const [results, setResults] = useState([]);
     
     const performSearch = (q) => {
-        console.log("searching");
         fetchSearchResults(props.mapID, q, (data) => {
             setResults(data)
             console.log(data);
         });
+    };
+    
+    const clearInput = () => {
+        setQuery("");
+        setResults([]);
     };
     
     const handleInput = (e) => {
@@ -26,10 +30,14 @@ export const SearchBar = (props) => {
     
     return (
         <div className="search-wrapper">
-            <input className="searchbar"
-                placeholder="Find a room"
-                value={query}
-                onInput={handleInput} />
+            <div className="searchbar-wrapper">
+                <input className="searchbar"
+                    placeholder="Find a room"
+                    value={query}
+                    onInput={handleInput} />
+                { query.length > 0 &&
+                    <DeleteIcon size={20} onClick={clearInput} /> }
+            </div>
             { results &&
                 <SearchResults results={results} /> }
         </div>
@@ -53,3 +61,23 @@ const SearchResults = (props) => {
         </div>
     );
 }
+
+/**
+Circle with an X.
+Has a onClick handler to function as the erase all button for the searchbar.
+*/
+const DeleteIcon = (props) => (
+    <svg className="icon close-icon"
+        width={props.size} height={props.size}
+        onClick={props.onClick}>
+        <circle cx={props.size/2} cy={props.size/2} r={props.size*.4}
+            stroke="gray" strokeWidth="1.5" fill="none" />
+        <path stroke="gray" strokeWidth="1.5"
+            d={
+                `M ${props.size*.3} ${props.size*.3}` +
+                `L ${props.size*.7} ${props.size*.7}` +
+                `M ${props.size*.7} ${props.size*.3}` +
+                `L ${props.size*.3} ${props.size*.7}`
+            } />
+    </svg>
+);

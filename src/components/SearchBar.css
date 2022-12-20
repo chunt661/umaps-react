@@ -8,15 +8,23 @@
     max-width: 400px;
 }
 
-.searchbar {
-    width: 100%;
-    
-    padding: 8px 16px;
+.searchbar-wrapper {
+    display: flex;
+    align-items: center;
+    grid-gap: 8px;
     
     border-radius: 21px;
     
     background: var(--card-bg-colour);
     box-shadow: 0px 2px 5px #c0c0c0;
+    
+    padding: 0px 16px;
+}
+
+.searchbar {
+    width: 100%;
+    background: none;
+    padding: 8px 0px;
 }
 
 .search-results {

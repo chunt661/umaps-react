@@ -128,7 +128,8 @@ export const Map = (props) => {
                     floor={currentFloor}
                     onClick={handleFeatureClick} /> }
             { selection &&
-                <SelectionLayer data={selection} />}
+                <SelectionLayer data={selection}
+                    floor={currentFloor} />}
             { (map && currentFloor) &&
                 <FloorControl
                     map={map}

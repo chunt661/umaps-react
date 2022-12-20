@@ -47,6 +47,10 @@ export const SelectionLayer = (props) => {
         fillOpacity: 0
     };
     
+    const hiddenStyle = { opacity: 0 };
+    
+    const style = props.floor == props.data.floor ? selectionStyle : hiddenStyle;
+    
     /*
     Changes the component's key whenever the selected feature changes.
     This ensures that the component will redraw itself.
@@ -63,6 +67,6 @@ export const SelectionLayer = (props) => {
         <GeoJSON
             key={key}
             data={props.data}
-            style={selectionStyle} />
+            style={style} />
     );
 };

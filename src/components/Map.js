@@ -37,7 +37,7 @@ export const Map = (props) => {
         let maxY = -props.mapHeight;
 
         // Find the centre of the room
-        feature[0].geometry.coordinates[0].forEach(c => {
+        feature.geometry.coordinates[0].forEach(c => {
             minX = Math.min(c[0], minX);
             minY = Math.min(c[1], minY);
             maxX = Math.max(c[0], maxX);
@@ -46,8 +46,8 @@ export const Map = (props) => {
         });
 
         // Change floor if necessary
-        if (currentFloor != feature[0].floor) {
-            setCurrentFloor(feature[0].floor);
+        if (currentFloor != feature.floor) {
+            setCurrentFloor(feature.floor);
         }
 
         // Zoom in on the room
@@ -72,14 +72,16 @@ export const Map = (props) => {
     
     const clearSelection = () => {
         setSelection(null);
-        props.onFeatureSelect(null);
+        props.clearSelection();
     };
     
     const handleFeatureClick = (feature) => {
-        fetchSingleFeature(props.mapID, feature.feature.room_id, (data) => {
+        props.onFeatureSelect(feature.feature.room_id);
+        
+        /*fetchSingleFeature(props.mapID, feature.feature.room_id, (data) => {
             goToFeature(data);
             selectFeature(data[0]);
-        });
+        });*/
     };
     
     /**
@@ -112,6 +114,13 @@ export const Map = (props) => {
         }
     }, [map]);
     
+    // Updates the display when the selected room changes
+    useEffect(() => {
+        if (props.selection) {
+            goToFeature(props.selection);
+        }
+    }, [props.selection]);
+    
     return (
         <MapContainer id="map"
             crs={CRS.Simple}
@@ -128,7 +137,7 @@ export const Map = (props) => {
                     floor={currentFloor}
                     onClick={handleFeatureClick} /> }
             { selection &&
-                <SelectionLayer data={selection}
+                <SelectionLayer data={props.selection}
                     floor={currentFloor} />}
             { (map && currentFloor) &&
                 <FloorControl

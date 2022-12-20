@@ -22,10 +22,14 @@ export const MapView = (props) => {
     */
     const handleFeatureSelect = (id) => {
         fetchSingleFeature(mapID, id, (data) => {
-            console.log(data);
             setFeature(data[0]);
         });
     };
+    
+    /**
+    Deselects the current selected feature.
+    */
+    const clearFeature = () => setFeature(null);
     
     useEffect(() => {
         fetchMapData(mapID, setMapData);
@@ -49,7 +53,9 @@ export const MapView = (props) => {
                     mapWidth={mapData.width}
                     mapHeight={mapData.height} 
                     maxZoom={mapData.maxZoom}
-                    onFeatureSelect={setFeature} />
+                    selection={feature}
+                    onFeatureSelect={handleFeatureSelect}
+                    clearSelection={clearFeature} />
             }
             </div>
             { feature &&

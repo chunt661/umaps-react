@@ -11,7 +11,7 @@ const _createButton = (txt, title, className, container, fn) => {
     button.setAttribute("aria-label", title)
 
     DomEvent.disableClickPropagation(button);
-    DomEvent.on(button, "click", DomEvent.stop);
+    DomEvent.on(button, "click", DomEvent.preventDefault);
     DomEvent.on(button, "click", fn);
 
     return button;

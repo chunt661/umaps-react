@@ -11,7 +11,7 @@ import { FeatureLayer, SelectionLayer } from "./MapLayers";
 export const Map = (props) => {
     const [map, setMap] = useState(null);
     const [features, setFeatures] = useState(null);
-    const [currentFloor, setCurrentFloor] = useState(0);
+    const [currentFloor, setCurrentFloor] = useState(props.startingFloor);
     const [selection, setSelection] = useState(null);
     
     const tileBounds = latLngBounds([-props.mapHeight, 0], [0, props.mapWidth]);

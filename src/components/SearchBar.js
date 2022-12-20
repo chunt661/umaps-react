@@ -25,6 +25,8 @@ export const SearchBar = (props) => {
         
         if (input && input.trim()) {
             performSearch(encodeURIComponent(input.trim()));
+        } else {
+            setResults([]);
         }
     };
     
@@ -40,7 +42,7 @@ export const SearchBar = (props) => {
                 { query.length == 0 &&
                     <SearchIcon size={20} /> }
             </div>
-            { results &&
+            { results.length > 0 &&
                 <SearchResults results={results} /> }
         </div>
     );

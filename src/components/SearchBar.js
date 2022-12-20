@@ -36,6 +36,14 @@ export const SearchBar = (props) => {
     };
     
     /**
+    Selects the room from a search result. Called when the user clicks on a
+    search result.
+    */
+    const handleResultSelect = (result) => {
+        props.onSelect(result.room_id);
+    };
+    
+    /**
     Blurs the search bar and hides the search results container when the
     user clicks outside of the search bar or results.
     */
@@ -66,7 +74,8 @@ export const SearchBar = (props) => {
                     <SearchIcon size={20} /> }
             </div>
             { isOpen &&
-                <SearchResults results={results} /> }
+                <SearchResults results={results}
+                    onSelect={handleResultSelect} /> }
         </div>
     );
 };
@@ -78,7 +87,8 @@ const SearchResults = (props) => {
             {
                 props.results.map(r => {
                     return (
-                        <li key={"result-" + r._id}>
+                        <li key={"result-" + r._id}
+                            onClick={() => props.onSelect(r)}>
                             <span>{r.properties.name}</span>
                             { r.properties.name != r.room_id &&
                                 <span>{r.room_id}</span> }

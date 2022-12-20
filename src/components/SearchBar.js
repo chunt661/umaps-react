@@ -41,6 +41,7 @@ export const SearchBar = (props) => {
     */
     const handleResultSelect = (result) => {
         props.onSelect(result.room_id);
+        setActive(false);
     };
     
     /**

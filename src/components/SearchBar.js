@@ -37,6 +37,8 @@ export const SearchBar = (props) => {
                     onInput={handleInput} />
                 { query.length > 0 &&
                     <DeleteIcon size={20} onClick={clearInput} /> }
+                { query.length == 0 &&
+                    <SearchIcon size={20} /> }
             </div>
             { results &&
                 <SearchResults results={results} /> }
@@ -78,6 +80,24 @@ const DeleteIcon = (props) => (
                 `L ${props.size*.7} ${props.size*.7}` +
                 `M ${props.size*.7} ${props.size*.3}` +
                 `L ${props.size*.3} ${props.size*.7}`
+            } />
+    </svg>
+);
+
+/**
+Magnifying glass icon.
+I currently don't have internet access so I had to make it from scratch. Thank
+god for trigonometry. Please don't judge the mess.
+*/
+const SearchIcon = (props) => (
+    <svg width={props.size} height={props.size}>
+        <circle cx={props.size*.4} cy={props.size*.4} r={props.size*.3}
+            stroke="gray" strokeWidth="1.5" fill="none" />
+        <path stroke="gray" strokeWidth="1.5"
+            d={
+                `M ${props.size*.4 + Math.cos(Math.PI/4)*props.size*.3}` +
+                ` ${props.size*.4 + Math.cos(Math.PI/4)*props.size*.3}` +
+                `L ${props.size*.9} ${props.size*.9}`
             } />
     </svg>
 );

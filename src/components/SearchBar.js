@@ -1,13 +1,16 @@
 import "./SearchBar.css";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { fetchSearchResults } from "../api";
 
 export const SearchBar = (props) => {
+    const [active, setActive] = useState(false);
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
+    const searchRef = useRef(null);
     
     const hasResults = results.length > 0;
+    const isOpen = active && hasResults;
     
     const performSearch = (q) => {
         fetchSearchResults(props.mapID, q, (data) => {
@@ -32,19 +35,37 @@ export const SearchBar = (props) => {
         }
     };
     
+    /**
+    Blurs the search bar and hides the search results container when the
+    user clicks outside of the search bar or results.
+    */
+    const handleOutsideClick = (e) => {
+        if (searchRef.current && !searchRef.current.contains(e.target)) {
+            setActive(false);
+        }
+    };
+    
+    useEffect(() => {
+        document.addEventListener("click", handleOutsideClick);
+        
+        return () => document.removeEventListener("click", handleOutsideClick);
+    }, [handleOutsideClick]);
+    
     return (
-        <div className="search-wrapper">
-            <div className={"searchbar-wrapper" + (hasResults ? " open" : "")}>
+        <div className="search-wrapper"
+            ref={searchRef}>
+            <div className={"searchbar-wrapper" + (isOpen ? " open" : "")}>
                 <input className="searchbar"
                     placeholder="Find a room"
                     value={query}
-                    onInput={handleInput} />
+                    onInput={handleInput}
+                    onFocus={() => setActive(true)} />
                 { query.length > 0 &&
                     <DeleteIcon size={20} onClick={clearInput} /> }
                 { query.length == 0 &&
                     <SearchIcon size={20} /> }
             </div>
-            { hasResults &&
+            { isOpen &&
                 <SearchResults results={results} /> }
         </div>
     );

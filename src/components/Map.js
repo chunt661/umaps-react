@@ -4,7 +4,7 @@ import "../leaflet/leaflet.css";
 import { useState, useEffect } from "react"
 import { latLngBounds, latLng, CRS } from "leaflet";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
-import { getTileURL, fetchFeatures, fetchSingleFeature } from "../api";
+import { getTileURL, fetchFeatures } from "../api";
 import { FloorControl } from "./MapControls";
 import { FeatureLayer, SelectionLayer } from "./MapLayers";
 

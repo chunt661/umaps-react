@@ -64,7 +64,7 @@
     /* TODO: fix clipping of letters */
 }
 
-.search-results li > span:last-child {
+.search-results li > span:not(:first-child) {
     color: darkgray;
 }
 

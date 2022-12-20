@@ -52,7 +52,7 @@ export const Map = (props) => {
 
         // Zoom in on the room
         const centre = latLng((maxY + minY)/2, (maxX + minX)/2);
-        map.flyTo(centre, 2.5);
+        map.flyTo(centre, 3);
         
         // Disable map controls to prevent bugged display on interrupt
         map.dragging.disable();

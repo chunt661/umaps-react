@@ -119,12 +119,13 @@ export const Map = (props) => {
             zoomControl={false}
             ref={handleMapCreated}>
             <TileLayer
-                url={getTileURL("mru", 1)}
+                url={getTileURL("mru", currentFloor)}
                 zoomOffset={0}
                 maxZoom={props.maxZoom}
                 bounds={tileBounds} />
             { features &&
                 <FeatureLayer data={features}
+                    floor={currentFloor}
                     onClick={handleFeatureClick} /> }
             { selection &&
                 <SelectionLayer data={selection} />}

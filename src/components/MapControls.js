@@ -18,13 +18,12 @@ const _createButton = (txt, title, className, container, fn) => {
 }
 
 export const FloorControl = (props) => {
-    
     useEffect(() => {
         const control = createFloorControl();
         control.addTo(props.map);
         
         return () => control.remove();
-    }, [props.map])
+    }, [props.map, props.currentFloor])
     
     const createFloorControl = (floors) => {
         const FloorControl = Control.extend({

@@ -23,6 +23,7 @@ export const FeatureLayer = (props) => {
     
     return (
         <GeoJSON
+            key={`features-floor-${props.floor}`}
             data={props.data}
             style={defaultStyle}
             onEachFeature={(feature, layer) => {

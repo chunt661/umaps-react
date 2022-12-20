@@ -46,7 +46,7 @@ export const Map = (props) => {
 
         // Change floor if necessary
         if (currentFloor != feature.floor) {
-            setCurrentFloor(feature.floor);
+            changeFloor(feature.floor);
         }
 
         // Zoom in on the room

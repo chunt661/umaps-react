@@ -59,6 +59,8 @@ const SearchResults = (props) => {
                     return (
                         <li key={"result-" + r._id}>
                             <span>{r.properties.name}</span>
+                            { r.properties.name != r.room_id &&
+                                <span>{r.room_id}</span> }
                         </li>
                     )
                 })

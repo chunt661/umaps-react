@@ -71,6 +71,11 @@ export const Map = (props) => {
         });
     };
     
+    const clearSelection = () => {
+        setSelection(null);
+        props.onFeatureSelect(null);
+    };
+    
     const handleFeatureClick = (feature) => {
         fetchSingleFeature(props.mapID, feature.feature.room_id, (data) => {
             goToFeature(data);
@@ -98,6 +103,10 @@ export const Map = (props) => {
                 map.keyboard.enable();
                 map.doubleClickZoom.enable();
                 map.scrollWheelZoom.enable();
+            });
+            
+            map.on("click", (e) => {
+                clearSelection();
             });
             
             changeFloor(props.startingFloor);

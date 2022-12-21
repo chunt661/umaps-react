@@ -8,6 +8,7 @@ export const SearchBar = (props) => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
     const searchRef = useRef(null);
+    const inputRef = useRef(null);
     
     const hasResults = results.length > 0;
     const isOpen = active && hasResults;
@@ -51,6 +52,7 @@ export const SearchBar = (props) => {
     const handleOutsideClick = (e) => {
         if (searchRef.current && !searchRef.current.contains(e.target)) {
             setActive(false);
+            console.log("outside");
         }
     };
     
@@ -63,8 +65,14 @@ export const SearchBar = (props) => {
     return (
         <div className="search-wrapper"
             ref={searchRef}>
-            <div className={"searchbar-wrapper" + (isOpen ? " open" : "")}>
+            <div className={"searchbar-wrapper" + (isOpen ? " open" : "")}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    inputRef.current.focus();
+                    setActive(true);
+                }}>
                 <input className="searchbar"
+                    ref={inputRef}
                     placeholder="Find a room"
                     value={query}
                     onInput={handleInput}

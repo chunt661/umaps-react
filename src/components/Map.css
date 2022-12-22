@@ -7,6 +7,14 @@
     outline: none !important;
 }
 
+#map .loading-wrapper {
+    position: fixed;
+    top: 50%;
+    z-index: 2000;
+    
+    pointer-events: none;
+}
+
 /*
 Leaflet overrides
 */

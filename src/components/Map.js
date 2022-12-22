@@ -28,7 +28,7 @@ export const Map = (props) => {
             setFeatures(data);
             setCurrentFloor(floor);
             setLoading(false);
-        });
+        }, () => setLoading(false));
     };
     
     /**

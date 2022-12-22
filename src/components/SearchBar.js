@@ -22,7 +22,7 @@ export const SearchBar = (props) => {
         fetchSearchResults(props.mapID, q, (data) => {
             setResults(data)
             setLoading(false);
-        });
+        }, () => setLoading(false));
     };
     
     const clearInput = () => {

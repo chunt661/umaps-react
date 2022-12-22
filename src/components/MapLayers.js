@@ -26,6 +26,7 @@ export const FeatureLayer = (props) => {
             key={`features-floor-${props.floor}`}
             data={props.data}
             style={defaultStyle}
+            bubblingMouseEvents={false}
             onEachFeature={(feature, layer) => {
                 layer.bindTooltip(l => l.feature.properties.name);
                 layer.on("mouseover", L.bind(handleMouseOver, null, layer));

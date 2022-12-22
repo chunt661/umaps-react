@@ -5,7 +5,8 @@ export const LoadingSpinner = (props) => {
         <div className="loading-wrapper">
             <div className="loading" style={{
                     "width": props.size,
-                    "height": props.size
+                    "height": props.size,
+                    "borderWidth": props.size*.2
                 }} />
         </div>
     );

@@ -33,6 +33,7 @@ export const SearchBar = (props) => {
     const handleInput = (e) => {
         const input = e.target.value;
         setQuery(input);
+        setActive(true);
         
         if (input && input.trim()) {
             performSearch(encodeURIComponent(input.trim()));
@@ -57,6 +58,7 @@ export const SearchBar = (props) => {
     const handleOutsideClick = (e) => {
         if (searchRef.current && !searchRef.current.contains(e.target)) {
             setActive(false);
+            console.log(e);
         }
     };
     

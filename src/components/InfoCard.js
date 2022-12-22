@@ -48,18 +48,18 @@ export const InfoCard = (props) => {
                     unmountOnExit={true}
                     timeout={duration}>
                 { state => (
-                <div className="infocard-title-container"
-                    ref={titleContainerRef}
-                    onClick={handleTitleClick}
-                    style={{
-                        ...defaultStyle,
-                        ...transitionStyles[state]
-                    }}>
-                            <div className="infocard-title"
-                                ref={titleRef}>
-                                <b>{props.roomName}</b>
-                            </div>
-                </div>
+                    <div className="infocard-title-container"
+                        ref={titleContainerRef}
+                        onClick={handleTitleClick}
+                        style={{
+                            ...defaultStyle,
+                            ...transitionStyles[state]
+                        }}>
+                        <div className="infocard-title"
+                            ref={titleRef}>
+                            <b>{props.roomName}</b>
+                        </div>
+                    </div>
                 )}
                 </Transition>
                 <div className="infocard-content-wrapper">

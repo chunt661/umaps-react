@@ -41,8 +41,7 @@ export const InfoCard = (props) => {
     }, [titleRef]);
     
     return (
-        <div className="infocard-wrapper">
-            <div className="infocard-handle" />
+        <div className={"infocard-wrapper" + (open ? " open" : " closed")}>
             <div className="infocard">
                 <Transition nodeRef={titleContainerRef}
                     in={true} appear={true}
@@ -63,7 +62,7 @@ export const InfoCard = (props) => {
                 </div>
                 )}
                 </Transition>
-                <div className={"infocard-content-wrapper" + (open ? " open" : " closed")}>
+                <div className="infocard-content-wrapper">
                     <div className="infocard-content">
                         <div className="infocard-subcontent">
                             <span>{props.roomNumber}</span>

@@ -34,10 +34,10 @@
     transition: height 200ms ease-out;
 }
 
-.infocard-content-wrapper.closed {
+.infocard-wrapper.closed .infocard-content-wrapper {
     height: 0px;
 }
 
-.infocard-content-wrapper.open {
+.infocard-wrapper.open .infocard-content-wrapper {
     height: 256px;
 }

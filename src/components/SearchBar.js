@@ -58,7 +58,6 @@ export const SearchBar = (props) => {
     const handleOutsideClick = (e) => {
         if (searchRef.current && !searchRef.current.contains(e.target)) {
             setActive(false);
-            console.log(e);
         }
     };
     

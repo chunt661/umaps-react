@@ -40,17 +40,19 @@
     
     background: var(--card-bg-colour);
     box-shadow: 0px 4px 5px -2px #c0c0c0;
-    padding: 8px 0px;
     
     overflow: hidden;
+}
+
+.search-results > * {
+    padding: 16px;
+    user-select: none;
 }
 
 .search-results li {
     display: flex;
     grid-gap: 16px;
     
-    padding: 16px;
-    user-select: none;
     cursor: pointer;
 }
 

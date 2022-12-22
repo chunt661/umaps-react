@@ -21,6 +21,7 @@ export const MapView = (props) => {
     current selection.
     */
     const handleFeatureSelect = (id) => {
+        clearFeature();
         fetchSingleFeature(mapID, id, (data) => {
             setFeature(data[0]);
         });

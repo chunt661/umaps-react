@@ -31,10 +31,7 @@ export const InfoCard = (props) => {
     
     useEffect(() => {
         if (titleRef.current) {
-            console.log(titleRef.current.getBoundingClientRect().height + "px")
             setTitleHeight(titleRef.current.getBoundingClientRect().height);
-        } else {
-            setTitleHeight(0);
         }
         
         return () => setTitleHeight(0);

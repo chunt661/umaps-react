@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Control, DomUtil, DomEvent } from "leaflet";
 
-const _createButton = (txt, title, className, container) => {
+const _createButton = (txt, title, className, container, fn) => {
     const button = DomUtil.create("a", className, container);
     button.innerHTML = txt;
     button.href = "#";
@@ -11,19 +11,19 @@ const _createButton = (txt, title, className, container) => {
     button.setAttribute("aria-label", title)
 
     DomEvent.disableClickPropagation(button);
-    DomEvent.on(button, "click", DomEvent.stop);
+    DomEvent.on(button, "click", DomEvent.preventDefault);
+    DomEvent.on(button, "click", fn);
 
     return button;
 }
 
 export const FloorControl = (props) => {
-    
     useEffect(() => {
         const control = createFloorControl();
         control.addTo(props.map);
         
         return () => control.remove();
-    }, [props.map])
+    }, [props.map, props.currentFloor])
     
     const createFloorControl = (floors) => {
         const FloorControl = Control.extend({
@@ -34,7 +34,8 @@ export const FloorControl = (props) => {
                 props.floors.slice().reverse().forEach(f =>
                     _createButton(f, "Floor " + f,
                                   props.currentFloor == f ? "selected" : "",
-                                  container)
+                                  container,
+                                  () => props.onClick(f))
                 );
                 
                 return container;

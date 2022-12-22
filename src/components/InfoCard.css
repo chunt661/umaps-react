@@ -1,0 +1,43 @@
+.infocard-wrapper {
+    position: relative;
+    z-index: 2000;
+}
+
+.infocard {
+    background: var(--card-bg-colour);
+    box-shadow: var(--box-shadow);
+}
+
+.infocard-title, .infocard-content {
+    padding: 16px;
+}
+
+.infocard-title {
+    cursor: pointer;
+}
+
+.infocard-subcontent {
+    display: flex;
+    justify-content: space-between;
+}
+
+.infocard-content {
+    border-top: 1px solid lightgrey;
+}
+
+.infocard-content > * {
+    margin-bottom: 16px;
+}
+
+.infocard-content-wrapper {
+    overflow: hidden;
+    transition: height 200ms ease-out;
+}
+
+.infocard-wrapper.closed .infocard-content-wrapper {
+    height: 0px;
+}
+
+.infocard-wrapper.open .infocard-content-wrapper {
+    height: 256px;
+}

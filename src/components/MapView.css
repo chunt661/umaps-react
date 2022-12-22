@@ -1,7 +1,8 @@
 main.map-view .navbar {
     display: flex;
     align-items: center;
-    height:40px;
+    height: 40px;
+    min-height: 40px;
     
     background: var(--card-bg-colour);
     box-shadow: var(--box-shadow);
@@ -14,6 +15,7 @@ main.map-view .navbar {
 main.map-view .navbar .navbar-title {
     display: flex;
     align-items: center;
+    user-select: none;
 }
 
 main.map-view .navbar .logo {

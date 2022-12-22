@@ -23,6 +23,13 @@ export function fetchSingleFeature(mapID, featureID, fn) {
         .catch(e => console.log(e)); // TODO: proper logging
 }
 
+export function fetchSearchResults(mapID, query, fn) {
+    fetch(`${API_PATH}/search/${mapID}/${query}`)
+        .then(res => res.json())
+        .then(json => fn(json))
+        .catch(e => console.log(e)); // TODO: proper logging
+}
+
 export function getTileURL(mapID, floor) {
     return `${TILE_PATH}/${mapID}/${floor}/{z}/{x}/{y}`;
 }

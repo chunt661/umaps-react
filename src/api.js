@@ -7,11 +7,11 @@ export function fetchMapData(mapID, fn, errFn) {
 }
 
 export function fetchFeatures(mapID, floor, fn, errFn) {
-    fetchData(`features/${mapID}/floor/${floor}`, fn, errFn);
+    loadData(`features/${mapID}/floor/${floor}`, fn, errFn);
 }
 
 export function fetchSingleFeature(mapID, featureID, fn, errFn) {
-    loadData(`features/${mapID}/${featureID}`, fn, errFn);
+    fetchData(`features/${mapID}/${featureID}`, fn, errFn);
 }
 
 export function fetchSearchResults(mapID, query, fn, errFn) {

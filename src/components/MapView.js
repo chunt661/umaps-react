@@ -1,7 +1,7 @@
 import "./MapView.css";
 
 import { useState, useEffect } from "react";
-import { fetchMapData, fetchSingleFeature } from "../api";
+import { fetchMapData, loadMapData, saveMapData, clearLocalData, fetchSingleFeature } from "../api";
 import { SearchBar } from "./SearchBar";
 import { InfoCard } from "./InfoCard";
 import { Map } from "./Map";
@@ -33,7 +33,17 @@ export const MapView = (props) => {
     const clearFeature = () => setFeature(null);
     
     useEffect(() => {
-        fetchMapData(mapID, setMapData);
+        fetchMapData(mapID, (data) => {
+            const localData = loadMapData(mapID);
+            if (!localData) {
+                saveMapData(mapID, data);
+            } else if (!localData.version || localData.version != data.version) {
+                clearLocalData(mapID);
+                saveMapData(mapID, data);
+            }
+            
+            setMapData(data);
+        });
     }, []);
     
     return (

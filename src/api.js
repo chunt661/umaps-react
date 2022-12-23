@@ -8,28 +8,28 @@ includes the map name, dimensions, number of floors, and other metadata
 related to map display and navigation.
 */
 export function fetchMapData(mapID, fn, errFn) {
-    fetchData(`data/${mapID}`, fn, errFn);
+    fetchData(`${mapID}/data`, fn, errFn);
 }
 
 /**
 Retrieves basic information and geometry of all features on a given floor.
 */
 export function fetchFeatures(mapID, floor, fn, errFn) {
-    loadData(`features/${mapID}/floor/${floor}`, fn, errFn);
+    loadData(`${mapID}/features/floor/${floor}`, fn, errFn);
 }
 
 /**
 Retrieves complete information about a single feature.
 */
 export function fetchSingleFeature(mapID, featureID, fn, errFn) {
-    fetchData(`features/${mapID}/${featureID}`, fn, errFn);
+    fetchData(`${mapID}/features/${featureID}`, fn, errFn);
 }
 
 /**
 Retrieves search results from the server.
 */
 export function fetchSearchResults(mapID, query, fn, errFn) {
-    fetchData(`search/${mapID}/${query}`, fn, errFn);
+    fetchData(`${mapID}/search/${query}`, fn, errFn);
 }
 
 /**
@@ -43,14 +43,14 @@ export function getTileURL(mapID, floor) {
 Loads map data from local storage.
 */
 export function loadMapData(mapID) {
-    return JSON.parse(localStorage.getItem(`data/${mapID}`));
+    return JSON.parse(localStorage.getItem(`${mapID}/data`));
 }
 
 /**
 Saves map data to local storage.
 */
 export function saveMapData(mapID, data) {
-    localStorage.setItem(`data/${mapID}`, JSON.stringify(data));
+    localStorage.setItem(`${mapID}/data`, JSON.stringify(data));
 }
 
 /**
@@ -58,7 +58,7 @@ Clears all local storage entries that belong to the given map ID.
 */
 export function clearLocalData(mapID) {
     for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage.key(i).match(`[^\/]+\/${mapID}\/.*`)) {
+        if (localStorage.key(i).match(`${mapID}\/.*`)) {
             localStorage.removeItem(localStorage.key(i));
         }
     }

@@ -22,6 +22,22 @@ export function getTileURL(mapID, floor) {
     return `${TILE_PATH}/${mapID}/${floor}/{z}/{x}/{y}`;
 }
 
+export function loadMapData(mapID) {
+    return JSON.parse(localStorage.getItem(`data/${mapID}`));
+}
+
+export function saveMapData(mapID, data) {
+    localStorage.setItem(`data/${mapID}`, JSON.stringify(data));
+}
+
+export function clearLocalData(mapID) {
+    for (let i = 0; i < localStorage.length; i++) {
+        if (localStorage.key(i).match(`[^\/]+\/${mapID}\/.*`)) {
+            localStorage.removeItem(localStorage.key(i));
+        }
+    }
+}
+
 /**
 Retrieves data from the API. First attempts to load the data from local 
 storage. If no data is stored, it is fetched from the server instead.

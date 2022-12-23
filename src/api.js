@@ -15,7 +15,7 @@ export function fetchSingleFeature(mapID, featureID, fn, errFn) {
 }
 
 export function fetchSearchResults(mapID, query, fn, errFn) {
-    fetchData(`search/${mapID}/${query}`)
+    fetchData(`search/${mapID}/${query}`, fn, errFn);
 }
 
 export function getTileURL(mapID, floor) {

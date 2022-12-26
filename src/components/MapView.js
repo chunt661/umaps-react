@@ -1,13 +1,14 @@
 import "./MapView.css";
 
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { fetchMapData, loadMapData, saveMapData, clearLocalData, fetchSingleFeature } from "../api";
 import { SearchBar } from "./SearchBar";
 import { InfoCard } from "./InfoCard";
 import { Map } from "./Map";
-const mapID = "mru";
 
 export const MapView = (props) => {
+    const mapID = useParams().mapID;
     const [mapData, setMapData] = useState(null);
     
     /**
@@ -32,6 +33,9 @@ export const MapView = (props) => {
     */
     const clearFeature = () => setFeature(null);
     
+    const navTitle = mapData ? mapData.shortName + " Room Finder"
+        : "umaps - Campus Room Finder";
+    
     useEffect(() => {
         fetchMapData(mapID, (data) => {
             const localData = loadMapData(mapID);
@@ -51,7 +55,7 @@ export const MapView = (props) => {
             <nav className="navbar">
                 <div className="navbar-title">
                     <img className="logo" src={process.env.PUBLIC_URL + "/icon.svg"} />
-                    <b>MRU Room Finder</b>
+                    <b>{navTitle}</b>
                 </div>
             </nav>
             <div className="map-container">

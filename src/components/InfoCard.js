@@ -5,10 +5,20 @@ import { Transition } from "react-transition-group";
 
 const duration = 200;
 
-const defaultStyle = {
-  transition: `height ${duration}ms ease-in-out`,
-  height: 0,
-}
+const featureTypeNames = {
+    classroom: "Classroom",
+    computer: "Computer Lab",
+    eating: "Dining Space",
+    food: "Restaurant/Fast Food",
+    gym: "Gym",
+    health: "Health Service",
+    lab: "Laboratory",
+    meeting: "Meeting Space",
+    office: "Office",
+    service: "Service",
+    store: "Store",
+    study: "Study Space"
+};
 
 export const InfoCard = (props) => {
     const [open, setOpen] = useState(false);
@@ -21,6 +31,10 @@ export const InfoCard = (props) => {
         setOpen(!open);
     };
     
+    const defaultStyle = {
+      transition: `height ${duration}ms ease-in-out`,
+      height: 0,
+    }
     const transitionStyles = {
       entering: { height: (titleHeight+8) + "px" },
       entered:  { height: titleHeight + "px" },
@@ -63,7 +77,7 @@ export const InfoCard = (props) => {
                     <div className="infocard-content">
                         <div className="infocard-subcontent">
                             <span>{props.roomNumber}</span>
-                            <span>{props.roomType}</span>
+                            <span>{featureTypeNames[props.roomType]}</span>
                         </div>
                         <p>{props.description}</p>
                     </div>

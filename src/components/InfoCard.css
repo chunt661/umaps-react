@@ -13,6 +13,10 @@
 }
 
 .infocard-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
     cursor: pointer;
 }
 
@@ -39,5 +43,18 @@
 }
 
 .infocard-wrapper.open .infocard-content-wrapper {
-    height: 256px;
+    height: 128px;
+}
+
+.infocard-wrapper .chevron-icon {
+    stroke: black;
+    transition: transform 200ms;
+}
+
+.infocard-wrapper.open .chevron-icon {
+    transform: rotate(180deg);
+}
+
+.infocard-wrapper.closed .chevron-icon {
+    transform: rotate(0deg);
 }

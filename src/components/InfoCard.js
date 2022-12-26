@@ -10,7 +10,6 @@ const defaultStyle = {
   height: 0,
 }
 
-
 export const InfoCard = (props) => {
     const [open, setOpen] = useState(false);
     const [titleHeight, setTitleHeight] = useState(0);
@@ -55,6 +54,7 @@ export const InfoCard = (props) => {
                         <div className="infocard-title"
                             ref={titleRef}>
                             <b>{props.roomName}</b>
+                            <ChevronIcon size={20} />
                         </div>
                     </div>
                 )}
@@ -70,5 +70,19 @@ export const InfoCard = (props) => {
                 </div>
             </div>
         </div>
+    );
+};
+
+const ChevronIcon = (props) => {
+    return (
+        <svg className="icon chevron-icon"
+            width={props.size} height={props.size}>
+            <path strokeWidth="1.5" fill="none"
+                d={
+                    `M ${props.size*.1} ${props.size*.7}` +
+                    `L ${props.size*.5} ${props.size*.3}` +
+                    `L ${props.size*.9} ${props.size*.7}`
+                } />
+        </svg>
     );
 };

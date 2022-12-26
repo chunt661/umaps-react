@@ -7,11 +7,13 @@ import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { getTileURL, fetchFeatures } from "../api";
 import { FloorControl } from "./MapControls";
 import { FeatureLayer, SelectionLayer } from "./MapLayers";
+import { LoadingSpinner } from "./LoadingSpinner";
 
 export const Map = (props) => {
     const [map, setMap] = useState(null);
     const [features, setFeatures] = useState(null);
     const [currentFloor, setCurrentFloor] = useState(props.startingFloor);
+    const [loading, setLoading] = useState(false);
     
     const tileBounds = latLngBounds([-props.mapHeight, 0], [0, props.mapWidth]);
     const mapBounds = tileBounds.pad(.25);
@@ -20,10 +22,13 @@ export const Map = (props) => {
     Sets the current floor and loads the new floor data.
     */
     const changeFloor = (floor) => {
+        setLoading(true);
+        
         fetchFeatures(props.mapID, floor, (data) => {
             setFeatures(data);
             setCurrentFloor(floor);
-        });
+            setLoading(false);
+        }, () => setLoading(false));
     };
     
     /**
@@ -125,6 +130,7 @@ export const Map = (props) => {
                     floors={props.floors}
                     currentFloor={currentFloor}
                     onClick={changeFloor} /> }
+            { loading && <LoadingSpinner size={96} /> }
         </MapContainer>
     );
 };

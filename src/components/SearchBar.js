@@ -1,23 +1,28 @@
 import "./SearchBar.css";
 
 import { useState, useRef, useEffect } from "react";
+import { LoadingSpinner } from "./LoadingSpinner";
 import { fetchSearchResults } from "../api";
 
 export const SearchBar = (props) => {
     const [active, setActive] = useState(false);
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(false);
+    
     const searchRef = useRef(null);
     const inputRef = useRef(null);
     
-    const hasResults = results.length > 0;
-    const isOpen = active && hasResults;
+    /** Whether the search results box is visible */
+    const isOpen = active && query.length > 0;
     
     const performSearch = (q) => {
+        setLoading(true);
+        
         fetchSearchResults(props.mapID, q, (data) => {
             setResults(data)
-            console.log(data);
-        });
+            setLoading(false);
+        }, () => setLoading(false));
     };
     
     const clearInput = () => {
@@ -28,6 +33,7 @@ export const SearchBar = (props) => {
     const handleInput = (e) => {
         const input = e.target.value;
         setQuery(input);
+        setActive(true);
         
         if (input && input.trim()) {
             performSearch(encodeURIComponent(input.trim()));
@@ -76,13 +82,15 @@ export const SearchBar = (props) => {
                     value={query}
                     onInput={handleInput}
                     onFocus={() => setActive(true)} />
-                { (query.length > 0 && active) &&
-                    <DeleteIcon size={20} onClick={clearInput} /> }
-                { (query.length == 0 || !active) &&
-                    <SearchIcon size={20} /> }
+                {
+                    (query.length > 0 && active) ?
+                        <DeleteIcon size={20} onClick={clearInput} />
+                        : <SearchIcon size={20} />
+                }
             </div>
             { isOpen &&
                 <SearchResults results={results}
+                    loading={loading}
                     onSelect={handleResultSelect} /> }
         </div>
     );
@@ -92,6 +100,11 @@ const SearchResults = (props) => {
     return (
         <div className="search-results-wrapper">
             <ul className="search-results">
+            { props.loading && <LoadingSpinner size={20} /> }
+            {
+                (!props.loading && props.results.length == 0) &&
+                    <div>No results found.</div>
+            }
             {
                 props.results.map(r => {
                     return (

@@ -10,6 +10,7 @@ import { Map } from "./Map";
 export const MapView = (props) => {
     const mapID = useParams().mapID;
     const [mapData, setMapData] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
     
     /**
     Data of the currently selected feature, if any, to be displayed in the
@@ -47,7 +48,7 @@ export const MapView = (props) => {
             }
             
             setMapData(data);
-        });
+        }, () => setErrorMessage(`No map found for '${mapID}'`));
     }, []);
     
     return (
@@ -58,21 +59,27 @@ export const MapView = (props) => {
                     <b>{navTitle}</b>
                 </div>
             </nav>
-            <div className="map-container">
-                <SearchBar mapID={mapID}
-                    onSelect={handleFeatureSelect} />
             { mapData &&
-                <Map mapID={mapID}
-                    floors={mapData.floors}
-                    startingFloor={mapData.startingFloor}
-                    mapWidth={mapData.width}
-                    mapHeight={mapData.height} 
-                    maxZoom={mapData.maxZoom}
-                    selection={feature}
-                    onFeatureSelect={handleFeatureSelect}
-                    clearSelection={clearFeature} />
+                <div className="map-container">
+                    <SearchBar mapID={mapID}
+                        onSelect={handleFeatureSelect} />
+                    <Map mapID={mapID}
+                        floors={mapData.floors}
+                        startingFloor={mapData.startingFloor}
+                        mapWidth={mapData.width}
+                        mapHeight={mapData.height} 
+                        maxZoom={mapData.maxZoom}
+                        selection={feature}
+                        onFeatureSelect={handleFeatureSelect}
+                        clearSelection={clearFeature} />
+                </div>
             }
-            </div>
+            { errorMessage &&
+                <div className="error">
+                    <b>Something went wrong!</b>
+                    <p>{errorMessage}</p>
+                </div>
+            }
             { feature &&
                 <InfoCard roomName={feature.properties.name}
                     roomNumber={feature.room_id}

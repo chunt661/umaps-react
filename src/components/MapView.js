@@ -34,9 +34,11 @@ export const MapView = (props) => {
     */
     const clearFeature = () => setFeature(null);
     
-    const navTitle = mapData ? mapData.shortName + " Room Finder"
+    /** Page title. */
+    const title = mapData ? mapData.shortName + " Room Finder"
         : "umaps - Campus Room Finder";
     
+    // Loads map data
     useEffect(() => {
         fetchMapData(mapID, (data) => {
             const localData = loadMapData(mapID);
@@ -51,12 +53,15 @@ export const MapView = (props) => {
         }, () => setErrorMessage(`No map found for '${mapID}'`));
     }, []);
     
+    // Updates the page title
+    useEffect(() => {document.title = title}, [title]);
+    
     return (
         <main className="map-view">
             <nav className="navbar">
                 <div className="navbar-title">
                     <img className="logo" src={process.env.PUBLIC_URL + "/icon.svg"} />
-                    <b>{navTitle}</b>
+                    <b>{title}</b>
                 </div>
             </nav>
             { mapData &&
